@@ -1,0 +1,63 @@
+-- Create the database
+CREATE DATABASE IF NOT EXISTS `traffic-ticket-system`;
+USE `traffic-ticket-system`;
+
+-- Drop tables if they already exist to avoid duplicates during development
+DROP TABLE IF EXISTS Tickets, Vehicles, Drivers, Violations, Admin;
+
+-- Admin Table (for login)
+CREATE TABLE IF NOT EXISTS Admin (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+-- Insert a sample admin (no hashed password as requested)
+INSERT INTO Admin (username, password) VALUES ('admin', 'admin123');
+
+-- Vehicles Table
+CREATE TABLE IF NOT EXISTS Vehicles (
+    vehicle_id INT AUTO_INCREMENT PRIMARY KEY,
+    vehicle_number VARCHAR(50) NOT NULL UNIQUE
+);
+
+-- Drivers Table
+CREATE TABLE IF NOT EXISTS Drivers (
+    driver_id INT AUTO_INCREMENT PRIMARY KEY,
+    driver_name VARCHAR(100) NOT NULL
+);
+
+-- Violations Table
+CREATE TABLE IF NOT EXISTS Violations (
+    violation_id INT AUTO_INCREMENT PRIMARY KEY,
+    violation_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- Tickets Table
+CREATE TABLE IF NOT EXISTS Tickets (
+    ticket_id INT AUTO_INCREMENT PRIMARY KEY,
+    vehicle_id INT NOT NULL,
+    driver_id INT NOT NULL,
+    violation_id INT NOT NULL,
+    ticket_date DATE,
+    issue_date DATE,
+    FOREIGN KEY (vehicle_id) REFERENCES Vehicles(vehicle_id) ON DELETE CASCADE,
+    FOREIGN KEY (driver_id) REFERENCES Drivers(driver_id) ON DELETE CASCADE,
+    FOREIGN KEY (violation_id) REFERENCES Violations(violation_id) ON DELETE CASCADE
+);
+
+-- Sample Vehicles
+INSERT IGNORE INTO Vehicles (vehicle_number) VALUES 
+('ABC1234'), ('XYZ5678'), ('LMN3456'), ('DEF7890'), ('GHI2345'),
+('JKL6789'), ('ASD9080'), ('RTY7689'), ('EWQ6678'), ('CDV4589');
+
+-- Sample Drivers
+INSERT IGNORE INTO Drivers (driver_name) VALUES 
+('John Doe'), ('Jane Smith'), ('Michael Johnson'), ('Emily Davis'), ('William Brown'),
+('Linda Wilson'), ('David Miller'), ('Barbara Moore'), ('Richard Taylor'), ('Susan Anderson');
+
+-- Sample Violations
+INSERT IGNORE INTO Violations (violation_name) VALUES 
+('Speeding'), ('Running Red Light'), ('Illegal Parking'), ('Expired Registration'),
+('No Seatbelt'), ('Driving Without License'), ('Reckless Driving'), 
+('Using Mobile While Driving'), ('Expired Insurance'), ('Noise Violation');
