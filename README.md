@@ -1,19 +1,27 @@
-🚓 Traffic Ticket Management System
+# 🚓 Traffic Ticket Management System #
 
 □ A simple and effective web-based system developed using PHP and MySQL, designed to assist traffic authorities in managing, issuing, and viewing traffic violation tickets.
 
-📁 Project File Structure
+# 📁 Project File Structure #
 
 📦 traffic-ticket-system/
 
 ├── dashboard.php        # Admin dashboard
+
 ├── db.php               # Database connection file
+
 ├── db.sql.txt           # SQL script to create the database and tables
+
 ├── issue_ticket.php     # Form to issue a new ticket
+
 ├── login.php            # Admin login page
+
 ├── logout.php           # Logout handler
+
 ├── print_ticket.php     # Printable ticket view
+
 ├── view_ticket.php      # View all issued tickets
+
 └── README.md            # Project 
 
 # documentation #
@@ -71,9 +79,8 @@ http://localhost/traffic-ticket-system/login.php
 
 ✅ Default login (if hardcoded or inserted manually in DB):
 
-makefile
-Copy code
 Username: admin  
+
 Password: admin123
 
 🙋‍♂️ Author
@@ -82,6 +89,9 @@ If you like this project, ⭐ star it and share!
 
 📄 License
 Licensed under the MIT License.
+
+# output #
+
 
 
 
