@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'db.php';  // Your database connection file
+require 'db.php';
 
 $error = '';
 
@@ -8,7 +8,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    // Simple query to check username and password in plain text
     $sql = "SELECT * FROM Admin WHERE username = '$username' AND password = '$password'";
     $result = $conn->query($sql);
 
@@ -29,7 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Admin Login</title>
 <style>
-    /* Reset some default styles */
     * {
         box-sizing: border-box;
     }
