@@ -12,8 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $result = $conn->query($sql);
 
     if ($result->num_rows === 1) {
-        $_SESSION["admin"] = $username;  // Save session
-        header("Location: dashboard.php");  // Redirect to dashboard
+        $_SESSION["admin"] = $username;  
+        header("Location: dashboard.php");  
         exit();
     } else {
         $error = "Invalid username or password.";
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #667eea, #764ba2);
+        background: linear-gradient(135deg, #ffffff, #e6f0ff); 
         height: 100vh;
         margin: 0;
         display: flex;
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         background: #fff;
         padding: 40px 30px;
         border-radius: 12px;
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         width: 100%;
         max-width: 380px;
         text-align: center;
@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     h2 {
         margin-bottom: 25px;
         font-weight: 700;
-        color: #333;
+        color: #2c3e50;
         letter-spacing: 1px;
     }
     form label {
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         text-align: left;
         margin-bottom: 6px;
         font-weight: 600;
-        color: #555;
+        color: #333;
         font-size: 14px;
     }
     input[type="text"],
@@ -74,21 +74,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         width: 100%;
         padding: 12px 15px;
         margin-bottom: 20px;
-        border: 2px solid #ddd;
+        border: 2px solid #ccd6f6; 
         border-radius: 8px;
         font-size: 16px;
-        transition: border-color 0.3s ease;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
     input[type="text"]:focus,
     input[type="password"]:focus {
-        border-color: #667eea;
+        border-color: #3b82f6;
         outline: none;
-        box-shadow: 0 0 8px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 0 8px rgba(59, 130, 246, 0.4); /* blue glow */
     }
     button {
         width: 100%;
         padding: 14px;
-        background-color: #667eea;
+        background-color: #3b82f6; 
         border: none;
         border-radius: 8px;
         color: white;
@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         letter-spacing: 0.8px;
     }
     button:hover {
-        background-color: #5a67d8;
+        background-color: #2563eb;
     }
     .error {
         color: #e74c3c;
