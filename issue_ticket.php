@@ -9,7 +9,6 @@ if (!isset($_SESSION["admin"])) {
 
 $message = "";
 
-// Issue Ticket
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['issue_ticket'])) {
     $vehicle_id = $_POST["vehicle_id"];
     $violation_id = $_POST["violation_id"];
@@ -24,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['issue_ticket'])) {
         "<p class='error'>❌ Failed to issue ticket.</p>";
 }
 
-// Delete Ticket
 if (isset($_GET['delete_ticket_id'])) {
     $ticket_id = $_GET['delete_ticket_id'];
     $stmt = $conn->prepare("DELETE FROM Tickets WHERE ticket_id = ?");
@@ -34,7 +32,6 @@ if (isset($_GET['delete_ticket_id'])) {
         "<p class='error'>❌ Failed to delete ticket.</p>";
 }
 
-// Delete All Tickets by Vehicle
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['delete_by_vehicle'])) {
     $vehicle_id = $_POST["delete_vehicle_id"];
     $stmt = $conn->prepare("DELETE FROM Tickets WHERE vehicle_id = ?");
@@ -44,7 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['delete_by_vehicle']))
         "<p class='error'>❌ Failed to delete tickets.</p>";
 }
 
-// Update Tickets by Vehicle
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_by_vehicle'])) {
     $vehicle_id = $_POST["update_vehicle_id"];
     $new_violation_id = $_POST["new_violation_id"];
@@ -56,12 +52,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_by_vehicle']))
         "<p class='error'>❌ Failed to update tickets.</p>";
 }
 
-// Dropdown Data
 $vehicles = $conn->query("SELECT vehicle_id, vehicle_number FROM Vehicles");
 $violations = $conn->query("SELECT violation_id, violation_name FROM Violations");
 $drivers = $conn->query("SELECT driver_id, driver_name FROM Drivers");
 
-// Ticket List
 $tickets = $conn->query("SELECT t.ticket_id, v.vehicle_number, vi.violation_name, d.driver_name, t.ticket_date, t.issue_date 
                          FROM Tickets t 
                          JOIN Vehicles v ON t.vehicle_id = v.vehicle_id 
@@ -224,7 +218,6 @@ $tickets = $conn->query("SELECT t.ticket_id, v.vehicle_number, vi.violation_name
     <h2>🚦 Ticket Management Portal</h2>
     <?= $message ?>
 
-    <!-- Issue New Ticket -->
     <form method="POST">
         <h3>✅ Issue New Ticket</h3>
         <label>Vehicle:</label>
@@ -257,7 +250,6 @@ $tickets = $conn->query("SELECT t.ticket_id, v.vehicle_number, vi.violation_name
         <button type="submit" name="issue_ticket">Issue Ticket</button>
     </form>
 
-    <!-- Tickets Table -->
     <h3>📄 Existing Tickets</h3>
     <table>
         <thead>
@@ -286,7 +278,6 @@ $tickets = $conn->query("SELECT t.ticket_id, v.vehicle_number, vi.violation_name
         </tbody>
     </table>
 
-    <!-- Delete Tickets -->
     <form method="POST">
         <h3>❌ Delete Tickets by Vehicle</h3>
         <label>Select Vehicle:</label>
@@ -299,7 +290,6 @@ $tickets = $conn->query("SELECT t.ticket_id, v.vehicle_number, vi.violation_name
         <button type="submit" name="delete_by_vehicle">Delete All Tickets</button>
     </form>
 
-    <!-- Update Tickets -->
     <form method="POST">
         <h3>✏️ Update Tickets by Vehicle</h3>
         <label>Select Vehicle:</label>
