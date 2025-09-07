@@ -6,7 +6,6 @@ if (!isset($_SESSION["admin"])) {
     exit();
 }
 
-// Get real-time ticket count
 $ticket_count = 0;
 $result = $conn->query("SELECT COUNT(*) as total FROM Tickets");
 if ($row = $result->fetch_assoc()) {
