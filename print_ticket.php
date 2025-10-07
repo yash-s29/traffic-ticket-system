@@ -27,94 +27,91 @@ if ($result->num_rows === 0) {
 
 $ticket = $result->fetch_assoc();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Print Ticket #<?= $ticket['ticket_id'] ?></title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(to right, #e3f2fd, #fce4ec);
-            padding: 50px;
-            margin: 0;
-            color: #333;
-        }
+<meta charset="UTF-8">
+<title>Print Ticket #<?= $ticket['ticket_id'] ?></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin:0; padding:0; font-family:'Inter',sans-serif; transition: background 0.3s, color 0.3s; }
+body.light { background: linear-gradient(to right,#e0f2fe,#f0f9ff); color: #1e3a8a; }
+body.dark { background:#1f2937; color:#f5f5f5; }
 
-        .ticket-container {
-            max-width: 750px;
-            margin: auto;
-            background: #ffffff;
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
+.ticket-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 50px 40px;
+    border-radius: 20px;
+    background: inherit;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    border-top: 6px solid #1e40af;
+    animation: fadeIn 0.5s ease-in-out;
+}
 
-        h1 {
-            text-align: center;
-            font-size: 30px;
-            color: #0d47a1;
-            margin-bottom: 40px;
-        }
+h1 {
+    text-align:center;
+    font-size:32px;
+    font-weight:700;
+    margin-bottom:40px;
+    color: #1e40af;
+}
+body.dark h1 { color: #60a5fa; }
 
-        .ticket-info {
-            font-size: 18px;
-            line-height: 1.9;
-        }
+.ticket-info {
+    font-size: 18px;
+    line-height: 2;
+}
+.ticket-info p {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.ticket-info strong {
+    font-weight:600;
+    color:#2563eb;
+    width: 200px;
+}
+body.dark .ticket-info strong { color:#60a5fa; }
 
-        .ticket-info p {
-            margin-bottom: 15px;
-        }
+.button-group {
+    text-align: center;
+    margin-top: 40px;
+}
+.print-button, .back-button {
+    display:inline-block;
+    background: linear-gradient(to right,#2563eb,#1e40af);
+    color:#fff;
+    padding:14px 36px;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:600;
+    border:none;
+    cursor:pointer;
+    text-decoration:none;
+    margin:0 10px;
+    transition:0.3s ease, transform 0.2s;
+}
+.print-button:hover, .back-button:hover { background: linear-gradient(to right,#1e40af,#0c2461); transform: translateY(-2px); }
 
-        .ticket-info strong {
-            display: inline-block;
-            width: 180px;
-            font-weight: 600;
-            color: #0d47a1;
-        }
+@media print {
+    body { background: #fff; padding:0; color:#000; }
+    .ticket-container { box-shadow:none; border:none; padding:30px; border-radius:0; border-top:4px solid #000; }
+    .button-group { display:none; }
+}
 
-        .button-group {
-            text-align: center;
-            margin-top: 40px;
-        }
+@keyframes fadeIn {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
+}
 
-        .print-button, .back-button {
-            display: inline-block;
-            background-color: #0d47a1;
-            color: #fff;
-            padding: 14px 32px;
-            border-radius: 10px;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            transition: 0.3s ease;
-            margin: 0 10px;
-        }
-
-        .print-button:hover, .back-button:hover {
-            background-color: #08306b;
-        }
-
-        @media print {
-            .print-button, .back-button {
-                display: none;
-            }
-
-            body {
-                background: white;
-                padding: 0;
-            }
-
-            .ticket-container {
-                box-shadow: none;
-                border: none;
-                padding: 30px;
-            }
-        }
-    </style>
+@media (max-width: 600px) {
+    .ticket-info p { flex-direction: column; }
+    .ticket-info strong { width:100%; margin-bottom:5px; }
+}
+</style>
 </head>
 <body>
 
@@ -122,12 +119,12 @@ $ticket = $result->fetch_assoc();
     <h1>🚔 Traffic Violation Ticket</h1>
 
     <div class="ticket-info">
-        <p><strong>Ticket ID:</strong> <?= $ticket['ticket_id'] ?></p>
-        <p><strong>Driver Name:</strong> <?= htmlspecialchars($ticket['driver_name']) ?></p>
-        <p><strong>Vehicle Number:</strong> <?= htmlspecialchars($ticket['vehicle_number']) ?></p>
-        <p><strong>Violation:</strong> <?= htmlspecialchars($ticket['violation_name']) ?></p>
-        <p><strong>Ticket Date:</strong> <?= $ticket['ticket_date'] ?></p>
-        <p><strong>Issue Date:</strong> <?= $ticket['issue_date'] ?></p>
+        <p><strong>Ticket ID:</strong> <span><?= $ticket['ticket_id'] ?></span></p>
+        <p><strong>Driver Name:</strong> <span><?= htmlspecialchars($ticket['driver_name']) ?></span></p>
+        <p><strong>Vehicle Number:</strong> <span><?= htmlspecialchars($ticket['vehicle_number']) ?></span></p>
+        <p><strong>Violation:</strong> <span><?= htmlspecialchars($ticket['violation_name']) ?></span></p>
+        <p><strong>Ticket Date:</strong> <span><?= $ticket['ticket_date'] ?></span></p>
+        <p><strong>Issue Date:</strong> <span><?= $ticket['issue_date'] ?></span></p>
     </div>
 
     <div class="button-group">
@@ -136,5 +133,9 @@ $ticket = $result->fetch_assoc();
     </div>
 </div>
 
+<script>
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.body.classList.add(savedTheme);
+</script>
 </body>
 </html>
